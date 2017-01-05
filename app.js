@@ -17,6 +17,14 @@ app.get('/dynamic/:name', function(req, res, next){
   res.render('dynamic', {params});
 });
 
+app.get('/api/info', function(req, res, next){
+  var data = {
+    name: 'howie mann',
+    age: '21'
+  };
+  res.json(data);
+});
+
 app.use(function(req, res){
   res.status(404).send('404 error');
 });

@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 
 chai.use(chaiHttp);
 
-describe('routes', function(){
+describe('static routes', function(){
   it('should display INDEX html on / GET', function(done){
     chai.request(app)
       .get('/')
@@ -39,6 +39,22 @@ describe('routes', function(){
       .end(function(err, res){
         res.should.have.status(404);
         res.text.should.equal('404 error');
+        done();
+      });
+  });
+});
+
+describe('api routes', function(){
+  it('should display json on /api/info GET', function(done){
+    chai.request(app)
+      .get('/api/info')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('name');
+        res.body.name.should.equal('howie mann');
+        res.body.should.have.property('age');
+        res.body.age.should.equal('21');
         done();
       });
   });
